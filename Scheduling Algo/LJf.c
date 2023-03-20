@@ -37,7 +37,7 @@ void getProcess(){
     printf("Enter the process count: \n");
     scanf("%d", &processCount);
 
-    if(processCount<6){
+    if(processCount<100){
         for(int i = 0; i<processCount; i++){
             printf("Process ID: ");
             scanf("%d", &proccesss[i].id);

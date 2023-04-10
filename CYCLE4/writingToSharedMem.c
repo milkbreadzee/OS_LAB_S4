@@ -7,6 +7,7 @@ int main()
 {  
 int i;  
 void *shared_memory;  
+void *p2shared_memory;  
 char buff[100];  
 int shmid;  
 //key_t is a datatype
@@ -28,4 +29,8 @@ printf("Enter some data to write to shared memory\n");
 read(0,buff,100); //get some input from user  
 strcpy(shared_memory,buff); //data written to shared memory  
 printf("You wrote : %s\n",(char *)shared_memory);  
+int p2_shmid=shmget((key_t)2345, 1024, 0666); 
+p2shared_memory = shmat(p2_shmid, NULL, 0);
+printf("Process attached at %p\n",p2shared_memory);  
+printf("Data read from shared memory is : %s\n",(char *)p2shared_memory);  
 }  

@@ -54,7 +54,7 @@ void findWaitingTime(proccess temp[], int wt[]){
         rt[i] = temp[i].burst_time;
     }
 
-    int complete = 0, t = 0, minm = INT_MAX;
+    int complete = 0, t = 0, minm = INT_MAX; //assign minm to max int possible to compare values later
     int shortest = 0, finish_time;
     bool check = false;
 

@@ -21,8 +21,12 @@ void getBlocks(){
 
 void implimentBestFit(int blockSize[], int blocks, int processSize[], int processes)
 {
+    //blocksize = array of memory sizes
+    //processsize = array of process sizes
+    //blocks = number of mem blocks inputted / available
+    //processes = number of proccesses inputted
     int allocation[processes];
-    //assigning -1 to indicate no block allotted
+    //assigning -1 to indicate no memory block allotted yet
     for(int i = 0; i < processes; i++){
         allocation[i] = -1;
     }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <limits.h>
 
 int pno, bno;
 int p[100], b[100];
@@ -19,7 +20,7 @@ void getBlocks(){
     }
 }
 
-void implimentBestFit(int blockSize[], int blocks, int processSize[], int processes)
+void implimentWorstFit(int blockSize[], int blocks, int processSize[], int processes)
 {
     //blocksize = array of memory sizes
     //processsize = array of process sizes
@@ -43,7 +44,7 @@ void implimentBestFit(int blockSize[], int blocks, int processSize[], int proces
                     index = j;
                     
                 // check rest of the boxes to see if it fits better
-                else if (blockSize[j] < blockSize[index])
+                else if (blockSize[j] > blockSize[index])
                     index = j;
             }
         }
@@ -73,5 +74,5 @@ void implimentBestFit(int blockSize[], int blocks, int processSize[], int proces
 int main(){
     getProcess();
     getBlocks();
-    implimentBestFit(b, bno, p, pno);
+    implimentWorstFit(b, bno, p, pno);
 }

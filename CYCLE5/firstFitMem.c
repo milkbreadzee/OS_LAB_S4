@@ -19,7 +19,7 @@ void getBlocks(){
     }
 }
 
-void implimentBestFit(int blockSize[], int blocks, int processSize[], int processes)
+void implimentFirstFit(int blockSize[], int blocks, int processSize[], int processes)
 {
     //blocksize = array of memory sizes
     //processsize = array of process sizes
@@ -33,45 +33,32 @@ void implimentBestFit(int blockSize[], int blocks, int processSize[], int proces
 
     for (int i=0; i < processes; i++)
     {
-        
-        int index = -1; // index maps to block number 
         for (int j=0; j < blocks; j++) 
         { 
             if (blockSize[j] >= processSize[i])
             {
-                if (index == -1)
-                    index = j;
-                    
-                // check rest of the boxes to see if it fits better
-                else if (blockSize[j] < blockSize[index])
-                    index = j;
+                    allocation[i] = j;
+                    blockSize[j] -= processSize[i];
+                    break; 
+                }
+                
             }
         }
-        //if we sucesfully found a blocl to allot it to
-        if (index != -1)
-        {
-            allocation[i] = index;
-            blockSize[index] -= processSize[i];
-        }
-    }
 
     printf("\nProcess No.\tProcess Size\tBlock no.\n");
     for (int i = 0; i < processes; i++)
     {
         printf("%d \t\t\t %d \t\t\t", i+1, processSize[i]);
         if (allocation[i] != -1)
-            printf("%d\n",allocation[i] + 1);
+            printf("%d\t\n",allocation[i] + 1);
         else
             printf("Not Allocated\n");
     }
 
 }
 
-
-
-
 int main(){
     getProcess();
     getBlocks();
-    implimentBestFit(b, bno, p, pno);
+    implimentFirstFit(b, bno, p, pno);
 }

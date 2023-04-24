@@ -6,7 +6,7 @@
 #include <sys/shm.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-#include <sys/stat.h>
+// #include <sys/stat.h>
 #include <semaphore.h>
 
 #define SHM_SIZE 10
@@ -28,6 +28,7 @@ int main() {
     }
 
     // Attach to shared memory segment
+    //turning -1 into a pointer otherwise, it will be a comparison btw an intger and a pointer.
     if ((buffer = shmat(shmid, NULL, 0)) == (int *) -1) {
         perror("shmat");
         exit(1);
@@ -37,16 +38,20 @@ int main() {
     //four arguments: a string containing the name of the semaphore,
     // a flag indicating whether the semaphore is to be created (O_CREAT) or opened (O_CREAT | O_EXCL), 
     //a file mode (0644 is common), and an initial value for the semaphore.
+    //On error, sem_open() returns SEM_FAILED, with errno set to indicate the error.
+    //Notice that the question code neglected to use SEM_FAILED; but rather specified '-1'; which resulted in the compiler warning "comparison between pointer and integer" indicated in the question.
+    //sem_t *sem_open(const char *name, int oflag, mode_t mode, unsigned int value);
+    // ref: https://man7.org/linux/man-pages/man3/sem_open.3.html
     if ((empty_sem = sem_open(EMPTY_SEM, O_CREAT, 0644, SHM_SIZE)) == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open error at EMPTY_SEM");
         exit(1);
     }
     if ((full_sem = sem_open(FULL_SEM, O_CREAT, 0644, 0)) == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open error at FULL_SEM");
         exit(1);
     }
     if ((mutex_sem = sem_open(MUTEX_SEM, O_CREAT, 0644, 1)) == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open error at MUTEX_SEM");
         exit(1);
     }
 
@@ -55,6 +60,7 @@ int main() {
         perror("fork");
         exit(1);
     } else if (pid == 0) {
+        //implies the current process is the child proccess
         for (i = 0; i < 10; i++) {
             int valuep; 
             sem_getvalue(mutex_sem, &valuep); 
@@ -71,7 +77,7 @@ int main() {
             printf("The value of the semaphors is (after producer left) %d\n", valuep);
             usleep(100000);
         }
-        exit(0);
+        exit(0); //program termintated succesfully
     }
 
     // Create consumer process

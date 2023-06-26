@@ -69,4 +69,5 @@ void main() {
 	printf(" P[%d] ",output[i]);
 	printf(">");
     printf("\n");
+    
 }

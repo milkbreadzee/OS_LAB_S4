@@ -6,7 +6,6 @@
 #include <sys/shm.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-// #include <sys/stat.h>
 #include <semaphore.h>
 
 #define SHM_SIZE 10
@@ -101,7 +100,7 @@ int main() {
             usleep(200000);
         }
         exit(0);
-    }
+    
 
     // Wait for child processes to finish
     wait(NULL);

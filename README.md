@@ -1,6 +1,6 @@
 # OPERATING SYSTEMS LAB S4 2023
 
-[CYCLE2 - Longest Job First](CYCLE2/LJf.c)
+[CYCLE2 - Longest Job First](CYCLE2/LJf.c) <br>
 [CYCLE2 - Round Robin](CYCLE2/RoundRobin.c)
 [CYCLE3 - Priority Scheduling](CYCLE3/priority.c)
 [CYCLE3 - Shortest Remaining Time First](CYCLE3/srtf.c)
